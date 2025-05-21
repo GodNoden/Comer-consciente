@@ -1,0 +1,73 @@
+/* globals.css */
+@import "tailwindcss";
+
+@layer theme {
+    :root {
+        /* Color variables - keep your existing HSL values */
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --ring: 215 20.2% 65.1%;
+        --background: 0 0% 100%;
+        --foreground: 222.2 47.4% 11.2%;
+        --primary: 222.2 47.4% 11.2%;
+        --primary-foreground: 210 40% 98%;
+        --secondary: 210 40% 96.1%;
+        --secondary-foreground: 222.2 47.4% 11.2%;
+        /* Add all other CSS variables from your config here */
+    }
+
+    .dark {
+        --border: 216 34% 17%;
+        --input: 216 34% 17%;
+        --ring: 216 34% 17%;
+        --background: 224 71% 4%;
+        --foreground: 213 31% 91%;
+        --primary: 210 40% 98%;
+        --primary-foreground: 222.2 47.4% 1.2%;
+        /* Add dark mode variables */
+    }
+
+    @layer default {
+
+        /* Container styles */
+        .container {
+            @apply mx-auto px-8;
+            max-width: 1400px;
+        }
+
+        /* Custom animations */
+        @keyframes accordion-down {
+            from {
+                height: 0
+            }
+
+            to {
+                height: var(--radix-accordion-content-height)
+            }
+        }
+
+        @keyframes accordion-up {
+            from {
+                height: var(--radix-accordion-content-height)
+            }
+
+            to {
+                height: 0
+            }
+        }
+    }
+
+    @layer utilities {
+
+        /* Custom color classes */
+        .border-foods {
+            @apply border-[var(--border)];
+        }
+
+        .bg-food-purple {
+            background-color: #6E59A5;
+        }
+
+        /* Add other food app colors here */
+    }
+}
