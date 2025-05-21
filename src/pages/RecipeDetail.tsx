@@ -301,7 +301,7 @@ const RecipeDetail = () => {
                             className="w-full h-full object-cover"
                         />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
+                    <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
                         <Badge className="bg-white/80 text-food-purple hover:bg-white self-start mb-2">
                             {recipe.category}
                         </Badge>
@@ -310,7 +310,7 @@ const RecipeDetail = () => {
                 </div>
 
                 {/* Recipe info and actions */}
-                <div className="bg-white rounded-lg shadow-sm mt-6 p-6">
+                <div className="bg-white rounded-lg shadow-xs mt-6 p-6">
                     <div className="flex flex-wrap items-center justify-between gap-4 border-b pb-4">
                         <div className="flex items-center gap-6">
                             <div className="flex items-center">

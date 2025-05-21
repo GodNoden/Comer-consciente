@@ -42,7 +42,7 @@ const RecipeCard = ({ id, title, time, difficulty, image, category }: RecipeCard
                         </Badge>
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="flex-grow">
+                <CardContent className="grow">
                     <p className="text-sm text-gray-500 line-clamp-2">
                         A delicious recipe that's perfect for any occasion. Try this mouth-watering dish today!
                     </p>
