@@ -105,7 +105,7 @@ const FeaturedRecipes = () => {
         filtered = filtered.filter(recipe => recipe.category.toLowerCase() === sortBy);
       } else {
         // Filter by tags
-        const tagMap: { [key: string]: string; } = {
+        const tagMap: { [key: string]: string } = {
           'low-carb': 'low carb',
           'high-carb': 'high carb',
           'high-protein': 'high protein',
@@ -138,18 +138,18 @@ const FeaturedRecipes = () => {
         <h2 className="text-2xl font-bold text-gray-800">Recipes</h2>
         <button className="text-food-purple hover:underline font-medium">View All</button>
       </div>
-
+      
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-2 mb-6">
           <TabsTrigger value="all">All Recipes</TabsTrigger>
           <TabsTrigger value="favorites">Favorites</TabsTrigger>
         </TabsList>
-
+        
         <TabsContent value="all" className="space-y-6">
           <div className="flex justify-between items-center">
             <RecipeSort sortBy={sortBy} onSortChange={setSortBy} />
           </div>
-
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredRecipes.map((recipe) => (
               <RecipeCard
@@ -170,7 +170,7 @@ const FeaturedRecipes = () => {
             ))}
           </div>
         </TabsContent>
-
+        
         <TabsContent value="favorites" className="space-y-6">
           <FavoriteRecipes onAddToWeeklyMenu={handleAddToWeeklyMenu} />
         </TabsContent>

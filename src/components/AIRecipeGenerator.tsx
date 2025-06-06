@@ -11,7 +11,7 @@ import { Bot, Loader2 } from 'lucide-react';
 interface AIRecipeGeneratorProps {
     isOpen: boolean;
     onClose: () => void;
-    onResult: (recipe: any) => void;
+    onResult: (recipe: unknown) => void;
 }
 
 const AIRecipeGenerator = ({ isOpen, onClose, onResult }: AIRecipeGeneratorProps) => {

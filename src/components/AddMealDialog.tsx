@@ -7,7 +7,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Recipe } from '@/types/menu';
+import { Recipe } from '@/types/menu.ts';
 
 interface AddMealDialogProps {
     isOpen: boolean;
