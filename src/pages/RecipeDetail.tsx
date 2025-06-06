@@ -1,10 +1,11 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Utensils, Clock } from 'lucide-react';
+import { ArrowLeft, Utensils, Clock, Heart, Calendar } from 'lucide-react';
+import AddToWeeklyMenuDialog from '@/components/AddToWeeklyMenuDialog';
+import { useToast } from '@/hooks/use-toast';
 
 // This would come from an API in a real app
 const recipeDetails = {
@@ -253,6 +254,15 @@ const recipeDetails = {
 const RecipeDetail = () => {
     const { id } = useParams<{ id: string; }>();
     const recipe = id ? recipeDetails[Number(id)] : null;
+    const { toast } = useToast();
+
+    const [isFavorite, setIsFavorite] = useState(() => {
+        if (!recipe) return false;
+        const favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+        return favorites.includes(recipe.id);
+    });
+
+    const [addToMenuDialog, setAddToMenuDialog] = useState(false);
 
     if (!recipe) {
         return (
@@ -275,6 +285,28 @@ const RecipeDetail = () => {
         easy: 'bg-green-100 text-green-800',
         medium: 'bg-amber-100 text-amber-800',
         hard: 'bg-red-100 text-red-800'
+    };
+
+    const toggleFavorite = () => {
+        const favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+        let newFavorites;
+
+        if (isFavorite) {
+            newFavorites = favorites.filter((favId: number) => favId !== recipe.id);
+            toast({
+                title: "Removed from favorites",
+                description: `${recipe.title} has been removed from your favorites.`,
+            });
+        } else {
+            newFavorites = [...favorites, recipe.id];
+            toast({
+                title: "Added to favorites",
+                description: `${recipe.title} has been added to your favorites.`,
+            });
+        }
+
+        localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+        setIsFavorite(!isFavorite);
     };
 
     return (
@@ -301,7 +333,7 @@ const RecipeDetail = () => {
                             className="w-full h-full object-cover"
                         />
                     </div>
-                    <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
                         <Badge className="bg-white/80 text-food-purple hover:bg-white self-start mb-2">
                             {recipe.category}
                         </Badge>
@@ -310,7 +342,7 @@ const RecipeDetail = () => {
                 </div>
 
                 {/* Recipe info and actions */}
-                <div className="bg-white rounded-lg shadow-xs mt-6 p-6">
+                <div className="bg-white rounded-lg shadow-sm mt-6 p-6">
                     <div className="flex flex-wrap items-center justify-between gap-4 border-b pb-4">
                         <div className="flex items-center gap-6">
                             <div className="flex items-center">
@@ -324,10 +356,28 @@ const RecipeDetail = () => {
                                 {recipe.rating} ★★★★☆
                             </div>
                         </div>
-                        <Button className="bg-food-purple hover:bg-food-purple/90">
-                            <Utensils className="mr-2" />
-                            Start Cooking
-                        </Button>
+                        <div className="flex gap-2">
+                            <Button
+                                variant="outline"
+                                onClick={toggleFavorite}
+                                className={`${isFavorite ? 'text-red-500 border-red-500' : ''}`}
+                            >
+                                <Heart className={`mr-2 h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
+                                {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+                            </Button>
+                            <Button
+                                variant="outline"
+                                onClick={() => setAddToMenuDialog(true)}
+                                className="text-food-purple border-food-purple hover:bg-food-soft-purple"
+                            >
+                                <Calendar className="mr-2 h-4 w-4" />
+                                Add to Weekly Menu
+                            </Button>
+                            <Button className="bg-food-purple hover:bg-food-purple/90">
+                                <Utensils className="mr-2" />
+                                Start Cooking
+                            </Button>
+                        </div>
                     </div>
 
                     <div className="mt-6">
@@ -382,6 +432,13 @@ const RecipeDetail = () => {
                     </div>
                 </div>
             </main>
+
+            <AddToWeeklyMenuDialog
+                isOpen={addToMenuDialog}
+                onClose={() => setAddToMenuDialog(false)}
+                recipeTitle={recipe.title}
+                recipeId={recipe.id}
+            />
         </div>
     );
 };

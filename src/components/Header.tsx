@@ -8,13 +8,15 @@ import {
     SheetTitle,
     SheetTrigger
 } from '@/components/ui/sheet';
-import { UserRound, Menu, BookOpen, CalendarDays, Plus } from 'lucide-react';
+import { UserRound, Menu, BookOpen, CalendarDays, Plus, LogIn, UserPlus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     return (
-        <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md shadow-xs">
+        <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center py-4">
                     <div className="flex items-center">
@@ -22,6 +24,25 @@ const Header = () => {
                     </div>
 
                     <div className="flex items-center space-x-2">
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => navigate('/login')}
+                            className="hover:bg-food-soft-purple"
+                        >
+                            <LogIn className="h-4 w-4 mr-2" />
+                            Login
+                        </Button>
+
+                        <Button
+                            size="sm"
+                            onClick={() => navigate('/register')}
+                            className="bg-food-purple hover:bg-food-purple/90"
+                        >
+                            <UserPlus className="h-4 w-4 mr-2" />
+                            Sign Up
+                        </Button>
+
                         <Button
                             variant="ghost"
                             size="icon"
