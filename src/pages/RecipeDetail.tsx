@@ -333,7 +333,7 @@ const RecipeDetail = () => {
                             className="w-full h-full object-cover"
                         />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
+                    <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
                         <Badge className="bg-white/80 text-food-purple hover:bg-white self-start mb-2">
                             {recipe.category}
                         </Badge>

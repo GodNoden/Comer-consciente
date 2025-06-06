@@ -132,7 +132,7 @@ const RecipeCard = ({
                                 </Badge>
                             </CardDescription>
                         </CardHeader>
-                        <CardContent className="flex-grow">
+                        <CardContent className="grow">
                             {(calories || protein || carbs || fat) && (
                                 <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-3">
                                     {calories && <div><span className="font-medium">Cal:</span> {calories}</div>}
